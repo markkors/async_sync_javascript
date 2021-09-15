@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  function printMe() {
+    console.log('print me');
+  }
+
+  setTimeout(printMe, 2000);
+
+  // of eventueel als functie closure
+  setTimeout(function () {
+    console.log("print me too");
+  },2000)
+
+  // arrow functies mogen ook
+  setTimeout(() => {console.log("print me too with arrow function")},2000);
+
+</script>
+</body>
+</html>

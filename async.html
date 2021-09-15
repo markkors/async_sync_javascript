@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    function hello() {
+        return "Hello";
+    };
+    console.log(hello());
+
+    async function hello_too() {
+        return "Hello too";
+    };
+    console.log(hello_too());
+
+    hello_too().then(function(value) {
+       console.log(value);
+    });
+
+
+    let hello_expression = async function() { return "Hello expression" };
+    console.log(hello_expression());
+
+    let hello_arrow = async () => "Hello arrow";
+    console.log(hello_arrow());
+
+    hello_arrow().then((value) => console.log(value))
+
+    async function hello_me() {
+        return greeting = await Promise.resolve("Hello it's me...");
+    };
+
+    hello_me().then(function(value) {
+        alert(value);
+    });
+
+
+</script>
+
+</body>
+</html>

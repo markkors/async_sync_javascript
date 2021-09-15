@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  fetch('http://rocmn.markkors.nl/images/campus%20ict%20college.jpg')
+          .then(function(response) {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.blob();
+          })
+          .then(myBlob => {
+            let objectURL = URL.createObjectURL(myBlob);
+            let image = document.createElement('img');
+            image.src = objectURL;
+            document.body.appendChild(image);
+          })
+          .catch(e => {
+            console.log('There has been a problem with your fetch operation: ' + e.message);
+          });
+
+  // Eventuele CORS origin problemen kun je verhelpen door een .htaccess bestand aan de server toe te voegen:
+  /*
+    <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    </IfModule>
+  */
+
+  async function myFetch() {
+      let response = await fetch('http://rocmn.markkors.nl/images/campus%20ict%20college.jpg');
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // de binaire data wordt in myBlob gezet
+      let myBlob = await response.blob();
+
+      let objectURL = URL.createObjectURL(myBlob);
+      let image = document.createElement('img');
+      image.src = objectURL;
+      document.body.appendChild(image);
+  }
+
+  myFetch()
+      .catch(e => {
+          console.log('There has been a problem with your fetch operation: ' + e.message);
+      });
+
+
+  async function FetchImage(url) {
+      let response = await fetch(url);
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.blob();
+  }
+
+  FetchImage('http://rocmn.markkors.nl/images/campus%20ict%20college.jpg').then(function(blob) {
+      let objectURL = URL.createObjectURL(blob);
+      let image = document.createElement('img');
+      image.src = objectURL;
+      document.body.appendChild(image);
+  }).catch(function(e) {console.log(e)});
+
+  FetchImage('http://rocmn.markkors.nl/images/ei.jpg').then(function(blob) {
+      let objectURL = URL.createObjectURL(blob);
+      let image = document.createElement('img');
+      image.src = objectURL;
+      document.body.appendChild(image);
+  }).catch(function(e) {console.log(e)});
+
+</script>
+</body>
+</html>

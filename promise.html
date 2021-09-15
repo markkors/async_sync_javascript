@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  let promise = new Promise((resolve, reject) =>
+          resolve('I am a resolved promise')
+          //reject('I am a not resolved promise')
+  );
+
+  promise.then(function(result) {
+    console.log(`resultaat van de promise: ${result}` );
+  }).catch(function(result) {
+    console.log(`resultaat van de promise: ${result}` );
+  });
+</script>
+</body>
+</html>
