@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    async function makeResult(items) {
+        let newArr = [];
+        for(let i=0; i < items.length; i++) {
+            newArr.push('item_'+i);
+        }
+        return newArr;
+    }
+
+    async function getResult(items) {
+        let result = await makeResult(items); // Blocked on this line
+        console.log(result); // Will not be executed before makeResult() is done
+        console.log("done");
+    }
+
+    let data = ["a","b","c"];
+    getResult(data);
+
+
+
+    function timeoutPromise(interval) {
+        return new Promise((resolve, reject) => {
+            setTimeout(function(){
+                resolve("done");
+            }, interval);
+        });
+    };
+
+    async function timeTest() {
+        // hier wachten we steeds tot de vorige klaar en, wachttijd in totaal dus circa 9 seconden
+        await timeoutPromise(3000);
+        await timeoutPromise(3000);
+        await timeoutPromise(3000);
+    }
+
+    async function timeTestFaster() {
+        // dit gaat sneller
+        // promises wordt gelijktijdig gestart en fullfilled
+        const timeoutPromise1 = timeoutPromise(3000);
+        const timeoutPromise2 = timeoutPromise(3000);
+        const timeoutPromise3 = timeoutPromise(3000);
+
+        await timeoutPromise1;
+        await timeoutPromise2;
+        await timeoutPromise3;
+    }
+
+    let startTime = Date.now();
+    alert("Start timer");
+    timeTest().then(() => {
+        let finishTime = Date.now();
+        let timeTaken = finishTime - startTime;
+        console.log("Time taken in milliseconds: " + timeTaken);
+    })
+
+    timeTestFaster().then(() => {
+        let finishTime = Date.now();
+        let timeTaken = finishTime - startTime;
+        console.log("Time taken in milliseconds: " + timeTaken);
+    })
+
+
+</script>
+</body>
+</html>
